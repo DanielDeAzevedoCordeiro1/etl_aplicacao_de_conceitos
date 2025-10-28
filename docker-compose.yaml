@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo_etl
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 123
+      MONGO_INITDB_DATABASE: ml_imo_db
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - imo-network
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: batch_db
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    networks:
+      - imo-network
+
+volumes:
+  mongo_data:
+  postgres_data:
+
+networks:
+  imo-network:
+    driver: bridge
