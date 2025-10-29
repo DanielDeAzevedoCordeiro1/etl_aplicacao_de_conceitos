@@ -100,7 +100,7 @@ public class MongoBatchConfig {
   ){
     return new MongoItemWriterBuilder<MLCourseData>()
         .template(mongoTemplate)
-        .collection("training_dataset")
+        .collection("ml_course_data")
         .build();
   }
 
